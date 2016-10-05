@@ -28,33 +28,43 @@ public class PlayerController : MonoBehaviour{
 
 		switch(input){
 			case InputManager.InputType.Left:
-				velocity.Left = -1;
-				velocity.Right = -1;
+				velocity.Left = -GetVelocity(player.Left.position.x);
+				velocity.Right = -GetVelocity(player.Right.position.x);
+				posReset.Set(false, false);
 
 				break;
 
 			case InputManager.InputType.Right:
-				velocity.Left = 1;
-				velocity.Right = 1;
+				velocity.Left = GetVelocity(player.Left.position.x);
+				velocity.Right = GetVelocity(player.Right.position.x);
+				posReset.Set(false, false);
 
 				break;
 
 			case InputManager.InputType.Both:
-				velocity.Left = -1;
-				velocity.Right = 1;
+				velocity.Left = -GetVelocity(player.Left.position.x);
+				velocity.Right = GetVelocity(player.Right.position.x);
+				posReset.Set(false, false);
 
 				break;
 
 			case InputManager.InputType.None:
-				velocity.Left = GetReturnVelocity(initialPos.Left.x, player.Left.position.x);
-				velocity.Right = GetReturnVelocity(initialPos.Right.x, player.Right.position.x);
-
-				if((int)velocity.Left == 0){
-					player.Left.position = initialPos.Left;
+				if(!posReset.Left){
+					velocity.Left = GetReturnVelocity(initialPos.Left.x, player.Left.position.x);
+					if((int)velocity.Left == -10) {
+						player.Left.position = initialPos.Left;
+						velocity.Left = 0;
+						posReset.Left = true;
+					}
 				}
 
-				if((int)velocity.Right == 0){
-					player.Right.position = initialPos.Right;
+				if(!posReset.Right){
+					velocity.Right = GetReturnVelocity(initialPos.Right.x, player.Right.position.x);
+					if((int)velocity.Right == -10){
+						player.Right.position = initialPos.Right;
+						velocity.Right = 0;
+						posReset.Right = true;
+					}
 				}
 					
 				break;
@@ -79,13 +89,13 @@ public class PlayerController : MonoBehaviour{
 	private float GetReturnVelocity(float x1, float x2){
 		float v;
 		if(x2-x1 <0){
-			v = 1;
+			v = GetVelocity(x2-x1);
 		}else if(x2 - x1 > 0){
-			v = -1;
+			v = -GetVelocity(x2-x1);
 		}else v = 0;
 
 		if(Mathf.Abs(x2-x1) <= (SPEED/50)){
-			v = 0;
+			v = -10;
 		}
 
 		return v;
