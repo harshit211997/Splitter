@@ -1,15 +1,30 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class GamePlayManager : MonoBehaviour {
 
-	// Use this for initialization
+	public int Score{get {return (int)score;}}
+	private float score = 0;
+
+	public bool gameOver = false;
+
 	void Start () {
-	
+		Events.GameOverEvent += GameOver;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+	private void GameOver(){
+		gameOver = true;
 	}
+
+	void OnDisable(){
+		Events.GameOverEvent -= GameOver;
+	}
+
+	void OnTriggerExit2D(Collider2D other){
+		if(other.tag.Equals("SpikeBoth")){
+			score += 0.5f;
+		}else{
+			score++;
+		}
+	}
+
 }
