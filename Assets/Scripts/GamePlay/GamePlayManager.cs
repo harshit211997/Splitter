@@ -21,11 +21,12 @@ public class GamePlayManager : MonoBehaviour {
 	public ObstacleGenerator generator;
 	public ParticleSystem ffparticle;//particle system for fastforward
 
-	public Text healthBar;
+	public Image healthBar;
 
 	private float score = 0;
 	private int coins;
-	private float playerHealth = 100;
+	private float maxPlayerHealth = 100f;
+	private float playerHealth;
 
 	void Start () {
 		if (PlayerPrefs.GetInt ("Music", 1) == 1) {
@@ -43,7 +44,9 @@ public class GamePlayManager : MonoBehaviour {
 			PowerUp.SetActive (false);
 		}
 
-		healthBar.text = playerHealth + "";
+		playerHealth = maxPlayerHealth;
+
+		healthBar.transform.localScale = new Vector3 (1, 1, 1);
 	}
 	
 	private void GameOver(){
@@ -113,10 +116,14 @@ public class GamePlayManager : MonoBehaviour {
 
 	public void setHealth(float health) {
 		playerHealth = health;
-		healthBar.text = health + "";
+		healthBar.transform.localScale = new Vector3 (health / maxPlayerHealth, 1, 1);
 	}
 
 	public float getPlayerHealth() {
 		return playerHealth;
+	}
+
+	public float getPlayerMaxHealth() {
+		return maxPlayerHealth;
 	}
 }

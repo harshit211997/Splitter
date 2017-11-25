@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour{
 	private float health;
 	
 	void Start(){
-		health = manager.getPlayerHealth ();
+		health = manager.getPlayerMaxHealth ();
 		playerTransform = new Pair<Transform>(transform.GetChild(0), transform.GetChild(1));
 		connector = transform.GetChild(2);
 		scale = new Pair<float>(0,1);
@@ -143,6 +143,21 @@ public class PlayerController : MonoBehaviour{
 			if (connector != null) {
 				Destroy (connector.gameObject);
 				connector = null;
+			}
+		}
+	}
+
+	void OnTriggerEnter2D(Collider2D col) {
+		if (string.Compare (col.gameObject.tag, "SpikeBoth") == 0 ||
+			string.Compare (col.gameObject.tag, "SpikeLeft") == 0 ||
+			string.Compare (col.gameObject.tag, "SpikeRight") == 0 ||
+			string.Compare (col.gameObject.tag, "SpikeCenter") == 0) {
+			//If the spike is active, deactivate it, otherwise it means that the spike already collided with other rocket
+			if (col.gameObject.activeSelf) {
+				decreaseHealth (
+					col.GetComponent<EnemyController> ().getDamage ()
+				);
+				col.gameObject.SetActive (false);
 			}
 		}
 	}

@@ -21,18 +21,6 @@ public class HalfRocketController : MonoBehaviour {
 		Events.GameOverEvent -= OnGameOver;
 	}
 
-	void OnTriggerEnter2D(Collider2D col) {
-		if (string.Compare (col.gameObject.tag, "SpikeBoth") == 0 ||
-		     string.Compare (col.gameObject.tag, "SpikeLeft") == 0 ||
-		     string.Compare (col.gameObject.tag, "SpikeRight") == 0 ||
-		     string.Compare (col.gameObject.tag, "SpikeCenter") == 0) {
-			playerController.decreaseHealth(
-				col.GetComponent<EnemyController> ().getDamage ()
-			);
-			col.gameObject.SetActive (false);
-		}
-	}
-
 	void OnCollisionEnter2D(Collision2D other) {
         if(other.transform.tag.Equals("Wall")){
       		sparksTop.Play();
