@@ -26,7 +26,10 @@ public class HalfRocketController : MonoBehaviour {
 		     string.Compare (col.gameObject.tag, "SpikeLeft") == 0 ||
 		     string.Compare (col.gameObject.tag, "SpikeRight") == 0 ||
 		     string.Compare (col.gameObject.tag, "SpikeCenter") == 0) {
-			playerController.Dead ();
+			playerController.decreaseHealth(
+				col.GetComponent<EnemyController> ().getDamage ()
+			);
+			col.gameObject.SetActive (false);
 		}
 	}
 

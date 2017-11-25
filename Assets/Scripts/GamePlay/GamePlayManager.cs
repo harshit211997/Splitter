@@ -21,8 +21,11 @@ public class GamePlayManager : MonoBehaviour {
 	public ObstacleGenerator generator;
 	public ParticleSystem ffparticle;//particle system for fastforward
 
+	public Text healthBar;
+
 	private float score = 0;
 	private int coins;
+	private float playerHealth = 100;
 
 	void Start () {
 		if (PlayerPrefs.GetInt ("Music", 1) == 1) {
@@ -39,6 +42,8 @@ public class GamePlayManager : MonoBehaviour {
 		if (coins < 10 && PlayerPrefs.GetInt("highscore", 0) >= 40) {
 			PowerUp.SetActive (false);
 		}
+
+		healthBar.text = playerHealth + "";
 	}
 	
 	private void GameOver(){
@@ -106,4 +111,12 @@ public class GamePlayManager : MonoBehaviour {
 		ffparticle.Stop ();
 	}
 
+	public void setHealth(float health) {
+		playerHealth = health;
+		healthBar.text = health + "";
+	}
+
+	public float getPlayerHealth() {
+		return playerHealth;
+	}
 }

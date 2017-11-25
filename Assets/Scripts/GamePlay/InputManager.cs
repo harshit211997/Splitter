@@ -34,8 +34,8 @@ public class InputManager : MonoBehaviour {
 			Application.Quit ();
 		}
 
-		MapInput();
-//		MapKeyBoardInput();
+//		MapInput();
+		MapKeyBoardInput();
 	}
 
 	private void MapInput(){

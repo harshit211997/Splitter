@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour{
 	public GameObject explosionPrefab;
 	public AudioClip explosionClip;
 	public AudioClip swoosh;
+	public GamePlayManager manager;
 
 	private Animator animator;
 	//x component of speed of left part of rocket
@@ -27,8 +28,11 @@ public class PlayerController : MonoBehaviour{
 	private Pair<float> targetX;
 	private float timeToMove;
 	private AudioSource source;
+
+	private float health;
 	
 	void Start(){
+		health = manager.getPlayerHealth ();
 		playerTransform = new Pair<Transform>(transform.GetChild(0), transform.GetChild(1));
 		connector = transform.GetChild(2);
 		scale = new Pair<float>(0,1);
@@ -114,7 +118,17 @@ public class PlayerController : MonoBehaviour{
 		connector.position = new Vector2((playerTransform.Right.position.x + playerTransform.Left.position.x)/2, playerTransform.Left.position.y);
 	}
 
-	public void Dead(){
+	public void decreaseHealth(float amount) {
+		if (health - amount < 0) {
+			health = 0;
+			Dead ();
+		} else {
+			health -= amount;
+		}
+		manager.setHealth (health);
+	}
+
+	private void Dead(){
 		if (!isGameOver) {
 			Events.CallGameOver ();
 			Destroy (playerTransform.Left.gameObject);

@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FallingSpeedController : MonoBehaviour {
+public class EnemyController : MonoBehaviour {
 
 	public float multiplier = 1;
 
+	private float damage = 50f;
 	private float Speed = 6.5f;
 	private bool isMoving = true;
 	private Vector3 tempPosition = new Vector3(0, 0);
@@ -35,4 +36,7 @@ public class FallingSpeedController : MonoBehaviour {
 		Events.GameOverEvent -= Stop;
 	}
 
+	public float getDamage() {
+		return damage;
+	}
 }
