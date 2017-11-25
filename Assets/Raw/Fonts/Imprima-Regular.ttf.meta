@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: dff90644e9e4c4b829583f4573095e7e
+timeCreated: 1504247393
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Imprima
+  fontNames:
+  - Imprima
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
