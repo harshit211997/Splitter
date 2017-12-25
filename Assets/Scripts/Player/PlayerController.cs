@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour{
 	public AudioClip explosionClip;
 	public AudioClip swoosh;
 	public GamePlayManager manager;
+	public Sprite[] left, right;
+	public SpriteRenderer leftRenderer, rightRenderer;
 
 	private Animator animator;
 	//x component of speed of left part of rocket
@@ -42,6 +44,11 @@ public class PlayerController : MonoBehaviour{
 		timeToMove = 0.1f * SpeedController.Speed / 6.5f;
 		source = GetComponent<AudioSource> ();
 		animator = GetComponent<Animator> ();
+
+		//Change Player Sprite corresponding to Selected one
+		int pIndex = PlayerPrefs.GetInt("rocket", 1);
+		leftRenderer.sprite = left [pIndex];
+		rightRenderer.sprite = right [pIndex];
 	}
 
 	public void Move(InputManager.InputType input){

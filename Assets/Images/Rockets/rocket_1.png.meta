@@ -1,11 +1,11 @@
 fileFormatVersion: 2
 guid: 0b17ba8172cfe408f8326ef30021cd52
-timeCreated: 1514216489
+timeCreated: 1514219354
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: rocket_0
-    21300002: rocket_1
+    21300000: rocket_1_0
+    21300002: rocket_1_1
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -102,29 +102,29 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rocket_0
+      name: rocket_1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 444
         height: 679
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: rocket_1
+      name: rocket_1_1
       rect:
         serializedVersion: 2
         x: 453
         y: 0
         width: 444
         height: 679
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

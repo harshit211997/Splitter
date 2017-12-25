@@ -31,7 +31,6 @@ public class PlayerManager : MonoBehaviour {
 	private void PlayerHit(){
 		gameOver = true;
 	}
-
 	
 }
 
