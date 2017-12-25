@@ -11,6 +11,7 @@ public class GameOverButtonManager : MonoBehaviour {
 	public AudioSource source;
 	public GameObject settingsPanel;
 	public GameObject scorePanel;
+	public GameObject rocketsPanel;
 
 	public void OpenSettings() {
 		settingsPanel.SetActive (true);
@@ -20,6 +21,7 @@ public class GameOverButtonManager : MonoBehaviour {
 	public void OnClickBack() {
 		settingsPanel.SetActive (false);
 		scorePanel.SetActive (true);
+		rocketsPanel.SetActive (false);
 	}
 
 	public void OnClickHome() {
@@ -36,4 +38,8 @@ public class GameOverButtonManager : MonoBehaviour {
 		}
 	}
 
+	public void OnClickRocket() {
+		rocketsPanel.SetActive (true);
+		scorePanel.SetActive (false);
+	}
 }

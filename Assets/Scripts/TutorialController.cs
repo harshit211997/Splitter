@@ -82,7 +82,6 @@ public class TutorialController : MonoBehaviour {
 				scoreCounter.SetActive (true);
 				PlayerPrefs.SetInt ("Tutorial", 0);
 				SpeedController.Reset ();
-				print ("count me");
 				generator.StartObstacleGeneration ();
 			}
 		}
