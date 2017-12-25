@@ -12,7 +12,7 @@ public class GamePlayManager : MonoBehaviour {
 	public Text gameOverScore;
 	public bool gameStart = true;
 	public bool gameOver = false;
-	public Animator cameraShake;
+	public CameraShake cameraShake;
 	public AudioClip background; 
 	public AudioSource source;
 	public AudioClip splash;
@@ -51,7 +51,7 @@ public class GamePlayManager : MonoBehaviour {
 	
 	private void GameOver(){
 		gameOver = true;
-		cameraShake.SetTrigger ("GameOver");
+		cameraShake.Activate();
 		scoreText.gameObject.SetActive (false);
 		if (score > PlayerPrefs.GetInt ("highscore")) {
 			PlayerPrefs.SetInt ("highscore", (int)score);
