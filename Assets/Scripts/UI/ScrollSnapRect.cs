@@ -30,6 +30,9 @@ public class ScrollSnapRect : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 
 	public Text selectionText;
 
+	public GameObject templateCard;
+	public RocketsList rocketsList;
+
     // fast swipes should be fast and short. If too long, then it is not fast swipe
     private int _fastSwipeThresholdMaxLimit;
 
@@ -78,7 +81,24 @@ public class ScrollSnapRect : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
             _horizontal = true;
         }
 
+
         _lerp = false;
+
+		print ("rockets size : " + rocketsList.rocketsList.Count);
+		for (int i = 0; i < rocketsList.rocketsList.Count; i++) {
+			GameObject rocketCard = Instantiate (templateCard);
+
+			Rocket rocket = rocketsList.rocketsList [i];
+			Image left = rocketCard.GetComponentsInChildren<Image> () [0];
+			Image right = rocketCard.GetComponentsInChildren<Image> () [1];
+			Text rocketName = rocketCard.GetComponentInChildren<Text> ();
+
+			left.overrideSprite = rocket.left;
+			right.overrideSprite = rocket.right;
+			rocketName.text = rocket.name;
+
+			rocketCard.transform.parent = transform.GetChild (0);
+		}
 
         // init
         SetPagePositions();
@@ -86,12 +106,15 @@ public class ScrollSnapRect : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
         InitPageSelection();
         SetPageSelection(startingPage);
 
+		print ("Hey!");
+
         // prev and next buttons
         if (nextButton)
             nextButton.GetComponent<Button>().onClick.AddListener(() => { NextScreen(); });
 
         if (prevButton)
             prevButton.GetComponent<Button>().onClick.AddListener(() => { PreviousScreen(); });
+
 	}
 
     //------------------------------------------------------------------------
