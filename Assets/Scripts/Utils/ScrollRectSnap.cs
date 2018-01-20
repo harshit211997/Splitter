@@ -7,23 +7,50 @@ public class ScrollRectSnap : MonoBehaviour {
 
 	// Public Variables
 	public RectTransform panel; // Holds the ScrollPanel
-	public GameObject[] items;
+	public List<GameObject> items;
 	public RectTransform center;	// Center to compare the distance to each item
 	public float d = 300;	// Distance from origin till which the items zooms in
 	public float maxScale = 1.2f;	// Max zoom scale
 	public int startItem = 1;
 	public float speed = 10f;
+	public GameObject templateRocket;
+	public RocketsList listContainer;
 
 	// Private Variables
+	private Image left, right;
+	private Text title, description;
+	private Button select;
 	private float[] distance;	// All items' distance to the center
 	private bool dragging = false;	// Will be true while we drag the panel
 	private int itemDistance;	// Will hold distance between buttons
 	private int minItemIndex;	// To hold index of the item, with smallest distance to center
 	private bool messageSent = false;
 	private bool targetNearestItem = true;
+	private Transform container;
 
 	void Start() {
-		int itemLength = items.Length;
+		//Populate the Scroll Panel
+		container = GetComponent<ScrollRect> ().content.transform;
+
+		Vector2 pos = new Vector2 (0, 21);
+		for (int i = 0; i < listContainer.rocketsList.Count; i++) {
+			GameObject rocket = Instantiate (templateRocket);
+			rocket.transform.parent = container;
+			rocket.GetComponent<RectTransform> ().localScale = Vector3.one;
+			gameObject.GetComponentInParent<ScrollRectSnap> ().items.Add (rocket);
+
+			title = rocket.transform.Find ("Rocket Title").GetComponent<Text>();
+			Transform rocketSprite = rocket.transform.Find ("Rocket Sprite").transform;
+			left = rocketSprite.Find ("Rocket Sprite left").GetComponent<Image> ();
+			right = rocketSprite.Find ("Rocket Sprite right").GetComponent<Image>();
+			description = rocket.transform.Find ("Rocket Description").GetComponent<Text>();
+
+			rocket.GetComponent<RectTransform> ().anchoredPosition = pos;
+			pos.x += 720;
+		}
+
+		int itemLength = items.Count;
+		print (itemLength);
 		distance = new float[itemLength];
 
 		// Get distance between items
@@ -34,21 +61,21 @@ public class ScrollRectSnap : MonoBehaviour {
 	}
 
 	void Update() {
-		for (int i = 0; i < items.Length; i++) {
+		for (int i = 0; i < items.Count; i++) {
 			distance [i] = Mathf.Abs (center.transform.position.x - items [i].transform.position.x);
 		}
 
 		if (targetNearestItem) {
 			float minDistance = Mathf.Min (distance);	// Get the min distance
 
-			for (int i = 0; i < items.Length; i++) {
+			for (int i = 0; i < items.Count; i++) {
 				if (minDistance == distance [i]) {
 					minItemIndex = i;
 				}
 			}
 		}
 
-		for (int i = 0; i < items.Length; i++) {
+		for (int i = 0; i < items.Count; i++) {
 			if (distance [i] <= d) {
 				float x = distance [i];
 				float y = maxScale - x / d * (maxScale - 1);
@@ -93,7 +120,7 @@ public class ScrollRectSnap : MonoBehaviour {
 	}
 
 	public void Next() {
-		if (minItemIndex + 1 < items.Length) {
+		if (minItemIndex + 1 < items.Count) {
 			GoToItem (minItemIndex + 1);
 		}
 	}
